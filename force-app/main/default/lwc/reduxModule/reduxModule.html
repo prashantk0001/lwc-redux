@@ -1,5 +1,10 @@
+<!--
+    This is the store creator + container component for your lwc-redux application.
+    Pass pass your rool LightningReduxElement in the slot to begin.
+-->
+
 <template>
-    <template if:true={ready}>
+    <template if:true={ready}>      
         <slot></slot>               <!-- pass all dependent components inside the slot.-->
     </template>
 </template>

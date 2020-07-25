@@ -1,6 +1,20 @@
+<!--
+    This is the component that initializes the store and as mentioned in reduxModule.html, 
+    pass the root LightningReduxElement of your applciation to the slot in below manner.
+-->
+
 <template>
+
+    <!--
+        use-logger : Boolean - to log actions and enable asserts for better debugging, typically this would be set false in prod.
+        reducer : Object/function - accepts a single reducer function or multiple reducers generated using combineReducers()
+        combine-reducers : Boolean - if passing multiple reducers in "reducer" attribute, set this as true
+        store-name : String - Mention name of the store here, should be unique and if not mentioned, DEFAULT_STORE is set as storeName.
+    -->
     <c-redux-module use-logger combine-reducers reducer={reducer}>
-        <c-simple-redux-show-contact></c-simple-redux-show-contact>
+
+        <c-simple-redux-show-contact></c-simple-redux-show-contact>     <!-- root component of the application that extends LightningReduxElement -->
+   
     </c-redux-module>
     <!--add example with multiple stores&reducers-->
 </template>

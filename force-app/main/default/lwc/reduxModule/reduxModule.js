@@ -1,9 +1,10 @@
 /**
 * Basic framework to implement state management using redux in Lightning Web Components
-*
+* 
 * @author  Prashant Kashyap
 * @version 1.0
 * @since   2020-07-24
+* DO NOT MODIFY
 */
 
 
@@ -397,6 +398,10 @@ const overrideAssert = () => {
 |
 |  Parameters:
 |	reducer (function) -- method which defines mapping of behavior and action. Needs to be implemented to mutate state.
+        the passed method takes 3 arguments: 
+            currentState : readonly state that needs to be changed when an action is fired.
+            draftState   : mutable copy of state object which should be returned by the function
+            action       : action that needs to be fired to change the state.0
 |
 |  Returns (function) :  function with immer.js added as thunk.
 *--------------------------------------------------------------------------------------------------------------------*/
