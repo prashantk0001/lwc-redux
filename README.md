@@ -1,7 +1,8 @@
 # lwc-redux
- Highly opinionated Redux state container implementaion for Lightning Web Components
+ Highly opinionated [Redux](https://redux.js.org/introduction/getting-started) state container implementaion for [Lightning Web Components](https://developer.salesforce.com/blogs/2018/12/introducing-lightning-web-components.html) Framework.
 
 ![lwc-redux](docs/lwc-redux.jpg)
+
 
 
 This package is highly opinionated implementation of Redux which is a predictable state container for JavaScript apps, with LWC and basically a wrapper around the Redux libraries alongside a few middlewares that a you might need. It helps you write applications that behave consistently. 
@@ -54,6 +55,9 @@ Here are some intuitive images that might click you:
 ##### Reducers : Reducers will help you keep your state organized and will only mutate the part of state they maintain.
 
 ##### Actions : Actions are simple, Asynchronous and Synchronous, Asynchronous actions will fetch the data from apex methods/ perform other asynhc operations, but will later invoke a synchronous action to finally get the processed data into state.
+
+# Installation:
+Get all the static resources and reduxModule LWC deployed in your org and you're all set!
 
 
 # Get Started:
@@ -208,3 +212,4 @@ export default class SimpleReduxShowContact extends LightningReduxElement {
         unsubscribeAllStores(this);
     }
 ```
+
