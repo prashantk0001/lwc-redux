@@ -40,3 +40,153 @@ Here are some intuitive images that might click you:
 
 ![lwc-redux-Data-Layer-Architechture](docs/lwc-redux-Data-Layer-Architechture.jpg)
 
+# Get Started:
+
+As we already mentioned, the implementation is a wrapper around Redux and LWC which lets you implement Redux with Lightning Web Components with milimal efforts.At the very core of this is reduxModule, here's all the exports:
+
+    DEFAULT_STORE (String): Default name of the store if you don't specify.
+    createReducer (function): Method to create a reducer.
+    fetchAllStoreNames (function): Fetch all the names of stores that are subscribed by the component
+    enqueueDispatch (function): Method to dispatch an action.
+    unsubscribeAllStores (function): Unsubscribe All stores at once, typically used in disconnectedCallback
+    LightningReduxElement (Class): Class which replaces LightningElement when implementing redux.
+
+### To create a Store:
+```
+<c-redux-module store-name="MYFIRSTSTORE" use-logger combine-reducers reducer={reducer}>
+        <c-simple-redux-show-contact></c-simple-redux-show-contact>     <!-- root component of your application that extends LightningReduxElement -->
+</c-redux-module>
+```
+### To create a Reducer:
+
+```
+import { createReducer } from 'c/reduxModule';
+const reducer = createReducer((currentState, draftState, action) => {
+    switch (action.type) {
+        case 'LOAD_CONTACTS': {
+            draftState.contacts = action.contacts;
+            return draftState;
+        }
+        case 'REMOVE_CONTACTS': {
+            draftState.contacts = draftState.contacts.filter((storeVal) => {
+                return storeVal.Id !== action.contactId;
+            });
+            return draftState;
+        }
+        default: {
+            return draftState;
+        }
+    }
+});
+```
+### Create async and sync Actions:
+```
+/*
+  this is a sync action, it has a type and can carry payload. 
+  sync actions typically will deal with state.
+  they should not perform any logic, and should return an object with following definition.
+    {
+      type : <required property which identifies which action was fired on state change and maps to a reducer. value should be unique>,
+      you can add other properties as needed.
+    }
+*/
+const loadContacts = (contacts) => {
+  return {
+    type: 'LOAD_CONTACTS',
+    contacts: contacts
+  }
+}
+
+/*
+  this is a async action, it does async activities such as fetching data from api or apex method and then 
+  it dispatches a sync action to update the information in state.
+  async actions typically get data from an async operation and pass it over to a sync action.
+
+  in below example: 
+  loadContactsAsyncAction returns a function which takes "dispatch" as a parameter, and invokes an
+  apex imperative method which fetches contacts and passes into "loadContacts() sync action" which in turn
+  is passed inside the dispatch() to update the state.
+
+*/
+const loadContactsAsyncAction = () => {
+  return dispatch => {
+    getContacts().then(response => {
+      dispatch(loadContacts(response));     //call dispatch to dispatch your sync action inside the async action.
+    });
+  }
+}
+```
+
+### Dispatch async and sync Actions:
+```
+    /*
+    enqueueDispatch() is async and returns a promise.
+        param1 : storeName
+        param2 : action to be dispatched
+
+    below example dispatches a sync action
+    */
+    enqueueDispatch(DEFAULT_STORE, loadContacts([{
+        Name : 'Prashant',
+        Id : '123'
+    },
+    {
+        Name : 'Yash',
+        Id : '234'
+    }])).then(()=>{
+        /* 
+            this is an example of how async actions should be fired.
+        */
+        enqueueDispatch(DEFAULT_STORE, loadContactsAsyncAction());
+    });
+```
+### State is Immutable:
+```
+/*
+        properties which are updated by state directly are readonly, and should not be updated directly 
+        as these are part of data layer and should be updated using actions only.
+        below code will not work.
+    */
+    remove(event){
+        this.contacts = this.contacts.filter((storeVal) => {
+            return storeVal.Id !== event.target.dataset.contactId;
+        });
+
+        console.log(this.contacts);
+    }
+```
+### Implementation to connect LWC with Store:
+```
+export default class SimpleReduxShowContact extends LightningReduxElement {
+    
+    //component property, @track so it can be reactive and updated as soon as an action mutates the state.
+    @track contacts;                    
+    
+    constructor(){
+        let mapStateToProps = ['contacts'];         //if specified as an array, component propName should typicall match with state propName
+        /*
+            super invocation, 
+            1st param : if passed null, reduxModule will replace with DEFAULT_STORE
+            2nd param : passed mapStateToProps as specified above.
+            3rd param : implementation of connector method to let you define how your component interacts with state.
+        */
+        super(DEFAULT_STORE, mapStateToProps, (state, component) => {
+            if (state && component && component.mapStateToProps) {
+
+                component.mapStateToProps.forEach((prop) => {
+                    component[prop] = state.contactstate[prop];         //contactstate is the namespace created for reducer1
+                });
+
+            }
+        });
+    }
+```
+
+### Unsubscribe from stores whem LWC is removed from DOM
+
+```
+    disconnectedCallback(){
+        //use unsubscribe all stores when component is removed from DOM. pass this reference to unsubscribe.
+        unsubscribeAllStores(this);
+    }
+```
