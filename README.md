@@ -6,6 +6,15 @@
 
 This package is highly opinionated implementation of Redux which is a predictable state container for JavaScript apps, with LWC and basically a wrapper around the Redux libraries alongside a few middlewares that a you might need. It helps you write applications that behave consistently. 
 
+This design allows you to separate your large, Single Page, multiple module containing LWC application into basic layers:
+    - Apex  : Service Layer
+    - LWC   : View Layer
+    - Store : Data Layer
+    
+It also helps you separate the logic into chunks which only concern with similar intents.
+
+e.g: your Single Page Application might have different modules; which can be managed separately using multiple reducers, which in turn helps you keep the state orgagnized.
+
 # Motivation
 
 As the requirements for LWC single-page applications have become increasingly complicated, our code must manage more events than ever before. UI events are also increasing in complexity, as we need to manage active routes, selected tabs, spinners, pagination controls, and so on.
@@ -40,9 +49,16 @@ Here are some intuitive images that might click you:
 
 ![lwc-redux-Data-Layer-Architechture](docs/lwc-redux-Data-Layer-Architechture.jpg)
 
+##### State : Residing inside the store is you Immuatble application state, this state can only be mutated when an action is dispatched, since it is a Data Structure, and you want to keep the application state in a namespaced way, you need to define your your state carefully. Keep the intentions of different parts of your state separate using reducers.
+
+##### Reducers : Reducers will help you keep your state organized and will only mutate the part of state they maintain.
+
+##### Actions : Actions are simple, Asynchronous and Synchronous, Asynchronous actions will fetch the data from apex methods/ perform other asynhc operations, but will later invoke a synchronous action to finally get the processed data into state.
+
+
 # Get Started:
 
-As we already mentioned, the implementation is a wrapper around Redux and LWC which lets you implement Redux with Lightning Web Components with milimal efforts.At the very core of this is reduxModule, here's all the exports:
+As we already mentioned, the implementation is a wrapper around Redux and LWC which lets you implement Redux with Lightning Web Components with milimal efforts. At the very core of this is reduxModule, here's all the exports:
 
     DEFAULT_STORE (String): Default name of the store if you don't specify.
     createReducer (function): Method to create a reducer.
@@ -52,6 +68,8 @@ As we already mentioned, the implementation is a wrapper around Redux and LWC wh
     LightningReduxElement (Class): Class which replaces LightningElement when implementing redux.
 
 ### To create a Store:
+
+The LWC passed as slot to the redux-module component and all its child components should typically extend LightningReduxElement instead of LightningElement.
 ```
 <c-redux-module store-name="MYFIRSTSTORE" use-logger combine-reducers reducer={reducer}>
         <c-simple-redux-show-contact></c-simple-redux-show-contact>     <!-- root component of your application that extends LightningReduxElement -->
