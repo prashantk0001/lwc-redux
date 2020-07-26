@@ -59,6 +59,8 @@ Here are some intuitive images that might click you:
 # Installation:
 Get all the static resources and reduxModule LWC deployed in your org and you're all set!
 
+Alternatively, copy all contents under force-app/main/default/ to try the provided example.
+
 
 # Get Started:
 
