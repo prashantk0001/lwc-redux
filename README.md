@@ -3,6 +3,7 @@
 
 ![lwc-redux](docs/lwc-redux.jpg)
 
+
 This package is highly opinionated implementation of Redux which is a predictable state container for JavaScript apps, with LWC and basically a wrapper around the Redux libraries alongside a few middlewares that a you might need. It helps you write applications that behave consistently. 
 
 # Motivation
@@ -31,9 +32,11 @@ Frameworks like LWC and LockerService attempt to solve this problem in the view 
 lwc-redux works without any conflicts with Lightning Web Components Framework in your Lightning Experience and is also not affected by LockerService.
 
 Here are some intuitive images that might click you:
+# lwc-redux comparison
 
 ![lwc-event-vs-redux](docs/lwc-event-vs-redux.jpg)
+
+# lwc-redux architecture:
+
 ![lwc-redux-Data-Layer-Architechture](docs/lwc-redux-Data-Layer-Architechture.jpg)
-
-
 
