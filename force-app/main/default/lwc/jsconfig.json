@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/reduxModule": [
+                "reduxModule/reduxModule.js"
+            ],
+            "c/simpleReduxApp": [
+                "simpleReduxApp/simpleReduxApp.js"
+            ],
+            "c/simpleReduxAppActions": [
+                "simpleReduxAppActions/simpleReduxAppActions.js"
+            ],
+            "c/simpleReduxRemoveContact": [
+                "simpleReduxRemoveContact/simpleReduxRemoveContact.js"
+            ],
+            "c/simpleReduxShowContact": [
+                "simpleReduxShowContact/simpleReduxShowContact.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}
