@@ -8,10 +8,10 @@
 This package is highly opinionated implementation of Redux which is a predictable state container for JavaScript apps, with LWC and basically a wrapper around the Redux libraries alongside a few middlewares that a you might need. It helps you write applications that behave consistently. 
 
 This design allows you to separate your large, Single Page, multiple module containing LWC application into basic layers:
-    - Apex  : Service Layer
-    - LWC   : View Layer
-    - Store : Data Layer
-    
+- Apex  : Service Layer
+- LWC   : View Layer
+- Store : Data Layer
+   
 It also helps you separate the logic into chunks which only concern with similar intents.
 
 e.g: your Single Page Application might have different modules; which can be managed separately using multiple reducers, which in turn helps you keep the state orgagnized.
