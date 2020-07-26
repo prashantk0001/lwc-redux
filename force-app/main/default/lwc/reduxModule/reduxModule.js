@@ -28,7 +28,7 @@
     @done :  connect method - devs will need to implement connector, which will complement the state they created  - might need to update asserts
     @done :  improve mapstatetoprops - now depends on how developers design state and connector method
     @done :  Load dependencies only once, only first store should load.
-    @todo :  add method to unsubscribe from all stores at once.
+    @done :  add method to unsubscribe from all stores at once.
 
     ----------------------------------------------------------------------------------------------
 
@@ -475,7 +475,6 @@ const enqueueDispatch = (storeName, action) => {
 *--------------------------------------------------------------------------------------------------------------------*/
 export {
     DEFAULT_STORE,
-    combineReducers,
     createReducer,
     fetchAllStoreNames,
     enqueueDispatch,
