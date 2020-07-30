@@ -1,5 +1,5 @@
 # lwc-redux
- Highly opinionated [Redux](https://redux.js.org/introduction/getting-started) state container implementaion for [Lightning Web Components](https://developer.salesforce.com/blogs/2018/12/introducing-lightning-web-components.html) Framework.
+ Highly opinionated [Redux](https://redux.js.org/introduction/getting-started) state container implementaion for [Lightning Web Components](https://developer.salesforce.com/blogs/2018/12/introducing-lightning-web-components.html) (LWC) Framework.
 
 ![lwc-redux](docs/lwc-redux.jpg)
 
